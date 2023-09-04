@@ -1,6 +1,6 @@
 {
   "name": "@domore-hr/react-barcode-scanner",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A barcode scanner base on Barcode Detector",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -74,7 +74,7 @@
   },
   "homepage": "https://preflower.github.io/react-barcode-scanner",
   "dependencies": {
-    "@undecaf/barcode-detector-polyfill": "0.9.20",
+    "barcode-detector": "2.0.0",
     "webrtc-adapter": "^8.2.3"
   },
   "files": [

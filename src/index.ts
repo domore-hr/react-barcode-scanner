@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
-// import { BarcodeDetectorPolyfill } from "@undecaf/barcode-detector-polyfill";
+import { BarcodeDetector as BarcodeDetectorPolyfill } from "barcode-detector";
 
 try {
   // @ts-expect-error
   window.BarcodeDetector.getSupportedFormats();
 } catch {
-  // // @ts-expect-error
-  // window.BarcodeDetector = BarcodeDetectorPolyfill;
+  // @ts-expect-error
+  window.BarcodeDetector = BarcodeDetectorPolyfill;
 }
 
 export * from "./hooks";
