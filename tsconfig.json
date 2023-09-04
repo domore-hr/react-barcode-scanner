@@ -25,7 +25,7 @@
     "baseUrl": ".",
     "paths": {
       "@@/*": [
-        ".dumi/tmp/*"
+        ".dumi/tmp/*",
       ],
       "react-barcode-scanner/*": [
         "src/*"
