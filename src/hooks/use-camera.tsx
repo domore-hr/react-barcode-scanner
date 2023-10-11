@@ -6,7 +6,7 @@ const DEFAULT_CONSTRAINTS: MediaTrackConstraints = {
   width: { min: 640, ideal: 1280 },
   height: { min: 480, ideal: 720 },
   facingMode: {
-    ideal: 'environment'
+    exact: 'environment'
   },
   advanced: [
     { width: 1920, height: 1280 },
