@@ -1,10 +1,20 @@
-import { type FunctionComponent, useEffect, useRef } from 'react'
-import { useCamera, useScanning, type ScanOptions } from '../hooks'
-import { type DetectedBarcode } from '../types'
+import { type FunctionComponent, useEffect, useRef } from "react";
+import { useCamera, useScanning, type ScanOptions } from "../hooks";
+import { type DetectedBarcode } from "../types";
 
 interface ScannerProps extends React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement> {
-  options?: ScanOptions
-  onCapture?: (barcodes: DetectedBarcode[]) => void
+  options?: ScanOptions;
+  onCapture?: (barcodes: DetectedBarcode[]) => void;
+  /**
+   * Function called when the camera device is successfully initialized.
+   * @returns {void}
+   */
+  onCameraInitialized?: () => void;
+  /**
+   * Function called when the camera device is unavailable.
+   * @returns {void}
+   */
+  onCameraUnavailable?: () => any;
   trackConstraints?: MediaTrackConstraints;
 }
 
@@ -12,25 +22,29 @@ const BarcodeScanner: FunctionComponent<ScannerProps> = ({
   options,
   onCapture,
   trackConstraints,
+  onCameraInitialized,
+  onCameraUnavailable,
   ...props
 }) => {
-  const instance = useRef<HTMLVideoElement>(null)
-  const [isCameraSupport] = useCamera(instance, trackConstraints)
-  const [detected, open, close] = useScanning(instance, options)
+  const instance = useRef<HTMLVideoElement>(null);
+  const [isCameraSupport] = useCamera(instance, trackConstraints);
+  const [detected, open, close] = useScanning(instance, options);
 
   useEffect(() => {
     if (isCameraSupport) {
-      open()
+      open();
+      onCameraInitialized?.();
     } else {
-      close()
+      close();
+      onCameraUnavailable?.();
     }
-  }, [close, isCameraSupport, open])
+  }, [close, isCameraSupport, open, onCameraInitialized, onCameraUnavailable]);
 
   useEffect(() => {
     if (detected !== undefined) {
-      onCapture?.(detected)
+      onCapture?.(detected);
     }
-  }, [detected, onCapture])
+  }, [detected, onCapture]);
 
   return (
     <video
@@ -40,7 +54,7 @@ const BarcodeScanner: FunctionComponent<ScannerProps> = ({
        * if the aspect ratio not match with camera,
        * it will cause enlargement screen, so user need consider it
        */
-      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      style={{ width: "100%", height: "100%", objectFit: "cover" }}
       autoPlay
       muted
       /**
@@ -49,7 +63,7 @@ const BarcodeScanner: FunctionComponent<ScannerProps> = ({
       playsInline
       {...props}
     />
-  )
-}
+  );
+};
 
-export default BarcodeScanner
+export default BarcodeScanner;

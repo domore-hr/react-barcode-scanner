@@ -1,5 +1,5 @@
 {
-  "name": "react-barcode-scanner",
+  "name": "@domore-hr/react-barcode-scanner",
   "version": "3.0.1",
   "description": "A barcode scanner base on Barcode Detector",
   "keywords": [
